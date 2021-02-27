@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include "person.h"
 #define SIZE 10
 
 class Graph
@@ -8,23 +10,24 @@ public:
 
 	//добавление вершины
 	void addVertex(
-		int vnumber	
+		const Person person
 		);
 
-	// удаление вершины
+	//// удаление вершины
 	void delVertex(
 		int vnumber
 		);
 
-	// удаление ребра
+	//// удаление ребра
 	void delEdge(
 		int v1,
 		int v2
 		);
 
 	//добавление ребра
-	void addEdge(int v1,
-		int v2,
+	void addEdge(
+		 Person  v1,
+		 Person v2,
 		int weight
 		);
 
@@ -37,23 +40,38 @@ public:
 		bool visited[]
 		);
 
-	//поиск количества путей между двумя вершинами
+	////все пары вершин, минимальное расстояние между которыми не превосходит n.
 	int findPathCountBetween(
 		int v1,
 		int v2,
 		const int step = 3
 		);
 
-
-	// поиск кратчайшего расстояния
+	//// поиск кратчайшего расстояния
 	int findMinWayDFS(int v1, int v2);
-	void findMinWayDFSInner(int v1, int v2, bool  visited[], int &minWay, int max);
 
-	//все пары вершин, минимальное расстояние между которыми не превосходит 3.
-	
+	// //поиск количества путей
+	int findPathCount(
+		int v1,
+		int v2
+		);
 private:
-	
-	void findPathInnner(
+	void findMinWayDFSInner(
+		int v1,
+		int v2,
+		bool  visited[],
+		int& minWay,
+		int max
+		);
+
+	void findPathInner(
+		int v1,
+		int v2, 
+		bool visited[],
+		int& count
+		);
+
+	void findPathBetweenInner(
 		int v1,
 		int v2,
 		bool visited[],
@@ -72,6 +90,6 @@ private:
 		);
 
 	int matrix[SIZE][SIZE];//матрица смежности
-	int vertexes[SIZE];//хранилище вершин	
+	Person vertexes[SIZE];//хранилище вершин	
 	int vertexCount;//количество добавленных вершин
 };
